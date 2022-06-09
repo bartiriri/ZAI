@@ -8,13 +8,16 @@ class ScoutSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['pk', 'url', 'first_name', 'last_name', 'phone']
 
 
-class TeamSerializer(serializers.ModelSerializer):
+class TeamSerializer(serializers.HyperlinkedModelSerializer):
+    team = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='allocation-detail')
     class Meta:
         model = Team
-        fields = ['pk', 'url', 'team_number', 'team_name', 'email']
+        fields = ['pk', 'url', 'team_number', 'team_name', 'email','team']
 
 
-class AllocationSerializer(serializers.ModelSerializer):
+class AllocationSerializer(serializers.HyperlinkedModelSerializer):
+    team = serializers.SlugRelatedField(queryset=Team.objects.all(), slug_field='team_name')
+    scout = serializers.SlugRelatedField(queryset=Scout.objects.all(), slug_field='last_name')
     class Meta:
         model = Allocation
         fields = ['pk', 'url', 'team', 'scout']
@@ -26,7 +29,9 @@ class DegreeSerializer(serializers.ModelSerializer):
         fields = ['pk', 'url', 'name']
 
 
-class ScoutDegreeSerializer(serializers.ModelSerializer):
+class ScoutDegreeSerializer(serializers.HyperlinkedModelSerializer):
+    degree = serializers.SlugRelatedField(queryset=Degree.objects.all(), slug_field='name')
+    scout = serializers.SlugRelatedField(queryset=Scout.objects.all(), slug_field='last_name')
     class Meta:
         model = Scout_degree
         fields = ['pk', 'url', 'degree', 'scout']

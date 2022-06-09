@@ -27,7 +27,7 @@ class Degree(models.Model):
 
 class Scout_degree(models.Model):
     degree = models.ForeignKey(Degree, related_name='degrees', on_delete=models.CASCADE)
-    scout = models.ForeignKey(Scout,related_name='scouts', on_delete=models.CASCADE)
+    scout = models.ForeignKey(Scout, related_name='scouts', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.degree) + ' ' + str(self.scout)

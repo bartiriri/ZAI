@@ -56,13 +56,13 @@ class DegreeDetail(generics.RetrieveUpdateDestroyAPIView):
 class ScoutDegreeList(generics.ListCreateAPIView):
     queryset = Scout_degree.objects.all()
     serializer_class = ScoutDegreeSerializer
-    name = 'scoutDegree-list'
+    name = 'scout_degree-list'
 
 
 class ScoutDegreeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Scout_degree.objects.all()
     serializer_class = ScoutDegreeSerializer
-    name = 'scoutDegree-detail'
+    name = 'scout_degree-detail'
 
 
 class ApiRoot(generics.GenericAPIView):
